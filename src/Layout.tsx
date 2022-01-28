@@ -13,7 +13,10 @@ export const Layout: React.FC = () => {
   const [status, setStatus] = useState<Statuses>(Statuses.Ready);
 
   if (status === Statuses.Ready) {
-    return <>ready</>;
+    return <>
+        <h1>Typer</h1>
+		<button className='button' onClick={ () => setStatus(Statuses.Started) }>Start</button>
+	</>;
   }
 
   if (status === Statuses.Started) {
