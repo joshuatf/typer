@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Timer } from './components/Timer';
 
 enum Statuses {
   Ready = 'ready',
@@ -6,15 +7,22 @@ enum Statuses {
   Complete = 'complete',
 }
 
+const GAME_TIME = 60;
+
 export const Layout: React.FC = () => {
-  const [status] = useState<Statuses>(Statuses.Ready);
+  const [status, setStatus] = useState<Statuses>(Statuses.Ready);
 
   if (status === Statuses.Ready) {
     return <>ready</>;
   }
 
   if (status === Statuses.Started) {
-    return <>started</>;
+    return <>
+        <Timer
+			onComplete={ () => setStatus(Statuses.Complete) }
+			seconds={ GAME_TIME }
+		/>
+    </>;
   }
 
   if (status === Statuses.Complete) {
