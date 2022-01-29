@@ -51,3 +51,10 @@ test('should calculate accuracy', () => {
   const accuracy = getAccuracy( 100, 9 );
   expect(accuracy).toBe(91);
 });
+
+  
+test('should calculate accuracy', () => {
+  const accuracy = getAccuracy( 0, 9 );
+  expect(accuracy).toBe(0);
+});
+  

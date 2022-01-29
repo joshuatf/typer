@@ -50,5 +50,8 @@ export const getWordsPerMinute = ( totalChars: number, time: number ) => {
  * @returns number
  */
 export const getAccuracy = ( totalChars: number, typos: number ) => {
+  if ( totalChars === 0 ) {
+    return 0;
+  }
   return Math.round( 100 * ( totalChars - typos ) / totalChars );
 };
