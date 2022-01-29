@@ -1,12 +1,12 @@
-import './App.css';
-import { Layout } from './Layout';
+import { Main } from './layout/Main';
+import './styles/App.scss';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Layout />
-      </header>
+    <div className="app">
+      <main className="app-main">
+        <Main />
+      </main>
     </div>
   );
 };

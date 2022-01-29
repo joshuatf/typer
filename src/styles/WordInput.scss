@@ -1,0 +1,44 @@
+@keyframes shake{
+    0%{
+      transform: translateX(0)
+    }
+    25%{
+      transform: translateX(18%);
+    }
+      
+    50%{
+      transform: translateX(-18%);
+    }
+    100%{
+      transform: translateX(0px);
+    }
+}
+
+.word-input__letter {
+    display: inline-block;
+}
+
+.word-input__letter-active {
+    text-decoration: underline;
+}
+
+.word-input__letter-upcoming {
+    opacity: 0.3;
+}
+
+.word-input__letter-error {
+    color: rgb(233, 101, 30);
+    animation: shake 0.3s  ;
+}
+
+.word-input {
+    &:after {
+        content: "\00a0";
+    }
+    
+    &.is-complete {
+        &:after {
+            text-decoration: underline;
+        }
+    }
+}
