@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { getWordsFromRemaining } from '../utils';
 import { Timer } from '../components/Timer';
 import { WordInput } from '../components/WordInput';
+import { Words } from '../components/Words';
 import { wordBank } from '../assets/wordBank';
+import '../styles/Main.scss';
 
 enum Statuses {
   Ready = 'ready',
@@ -10,6 +12,7 @@ enum Statuses {
   Complete = 'complete',
 }
 
+const COMPLETED_WORDS_SHOWN_COUNT = 2;
 const UPCOMING_WORDS_SHOWN_COUNT = 3;
 const GAME_TIME = 60;
 
@@ -28,7 +31,9 @@ export const Main: React.FC = () => {
     setRemainingWords( remaining );
   }, [ visibleWords.length ] );
 
+  const recentlyCompletedWords = completedWords.slice(-COMPLETED_WORDS_SHOWN_COUNT);
   const currentWord = visibleWords[0];
+  const upcomingWords = visibleWords.slice(1);
 
   if (status === Statuses.Ready) {
     return <>
@@ -43,17 +48,21 @@ export const Main: React.FC = () => {
         onComplete={ () => setStatus(Statuses.Complete) }
         seconds={ GAME_TIME }
       />
-      { currentWord &&
-        <WordInput
-        onComplete={ (word) => {
-          setCompletedWords( [...completedWords, word] );
-          setVisibleWords( visibleWords.slice(1) );
-        } }
-        onCorrect={ () => setCompletedCharsCount( completedCharsCount + 1 ) }
-        onError={ () => setTyposCount( typosCount + 1 ) }
-        onSkip={ () => setVisibleWords( visibleWords.slice(1) ) }
-        word={ currentWord }
-        /> }
+      <div className="words-container">
+			<Words id="completed" words={ recentlyCompletedWords } />        
+        { currentWord &&
+          <WordInput
+          onComplete={ (word) => {
+            setCompletedWords( [...completedWords, word] );
+            setVisibleWords( visibleWords.slice(1) );
+          } }
+          onCorrect={ () => setCompletedCharsCount( completedCharsCount + 1 ) }
+          onError={ () => setTyposCount( typosCount + 1 ) }
+          onSkip={ () => setVisibleWords( visibleWords.slice(1) ) }
+          word={ currentWord }
+          /> }
+        <Words id="upcoming" words={ upcomingWords } />
+      </div>
     </>;
   }
 

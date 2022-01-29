@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useKeyPress } from '../hooks/useKeyPress';
+import '../styles/WordInput.scss';
 
 type WordProps = {
   onComplete: (letter: string) => void;
