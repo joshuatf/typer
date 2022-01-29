@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getWordsFromRemaining, getWordsPerMinute, getAccuracy } from '../utils';
 import { Timer } from '../components/Timer';
-import { Screen } from '../layout/Screen';
+import { Screen } from './Screen';
 import { Stat } from '../components/Stat';
 import { WordInput } from '../components/WordInput';
 import { Words } from '../components/Words';
