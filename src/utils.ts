@@ -32,3 +32,23 @@ export const getWordsFromRemaining = ( n: number, wordBank: string[] ): string[]
     remaining,
   ];
 };
+
+/**
+ * Get the number of words per minute.
+ * @param totalChars Total characters.
+ * @param time Time in seconds.
+ * @returns number
+ */
+export const getWordsPerMinute = ( totalChars: number, time: number ) => {
+  return Math.floor( ( totalChars / 5 ) / ( time / 60 ) );
+};
+
+/**
+ * Get the accuracy given the total words and typos.
+ * @param totalChars Total characters.
+ * @param typos Total typos.
+ * @returns number
+ */
+export const getAccuracy = ( totalChars: number, typos: number ) => {
+  return Math.round( 100 * ( totalChars - typos ) / totalChars );
+};

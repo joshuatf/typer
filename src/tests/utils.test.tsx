@@ -1,4 +1,4 @@
-import { getRandomIndex, getWordsFromRemaining } from '../utils';
+import { getRandomIndex, getWordsFromRemaining, getWordsPerMinute, getAccuracy } from '../utils';
 
 const wordBank = [ 'a', 'b', 'c' ];
 
@@ -35,4 +35,19 @@ test('should get no words or remaining when wordbank is empty', () => {
   const [ words, remaining ] = getWordsFromRemaining( 3, [] );
   expect(words.length).toBe(0);
   expect(remaining.length).toBe(0);
+});
+
+test('should get words per minute over 60 seconds', () => {
+  const wpm = getWordsPerMinute( 400, 60 );
+  expect(wpm).toBe(80);
+});
+
+test('should get words per minute over 30 seconds', () => {
+  const wpm = getWordsPerMinute( 250, 30 );
+  expect(wpm).toBe(100);
+});
+
+test('should calculate accuracy', () => {
+  const accuracy = getAccuracy( 100, 9 );
+  expect(accuracy).toBe(91);
 });

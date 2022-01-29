@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { getWordsFromRemaining } from '../utils';
+import { getWordsFromRemaining, getWordsPerMinute, getAccuracy } from '../utils';
 import { Timer } from '../components/Timer';
 import { Screen } from '../layout/Screen';
+import { Stat } from '../components/Stat';
 import { WordInput } from '../components/WordInput';
 import { Words } from '../components/Words';
 import { wordBank } from '../assets/wordBank';
@@ -69,7 +70,24 @@ export const Main: React.FC = () => {
     </Screen>
 
     <Screen condition={ status === Statuses.Complete }>
-      <>stats</>
+      <div className='stats'>
+        <Stat
+          label="WPM"
+          text={ getWordsPerMinute( completedCharsCount, GAME_TIME ) }
+        />
+        <Stat
+          label="Accuracy"
+          text={ getAccuracy( completedCharsCount, typosCount ) + '%'  }
+        />
+        <Stat
+          label="Typos"
+          text={ typosCount }
+        />
+        <Stat
+          label="Completed"
+          text={ completedWords.length }
+        />
+      </div>
     </Screen>
   </>;
 };
