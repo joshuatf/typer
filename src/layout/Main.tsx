@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getWordsFromRemaining } from '../utils';
 import { Timer } from '../components/Timer';
+import { Screen } from '../layout/Screen';
 import { WordInput } from '../components/WordInput';
 import { Words } from '../components/Words';
 import { wordBank } from '../assets/wordBank';
@@ -35,41 +36,41 @@ export const Main: React.FC = () => {
   const currentWord = visibleWords[0];
   const upcomingWords = visibleWords.slice(1);
 
-  if (status === Statuses.Ready) {
-    return <>
+  return <>
+    <Screen condition={ status === Statuses.Ready }>
+      <>
         <h1>Typer</h1>
-		<button className='button' onClick={ () => setStatus(Statuses.Started) }>Start</button>
-	</>;
-  }
+        <button className='button' onClick={ () => setStatus(Statuses.Started) }>Start</button>
+      </>
+    </Screen>
 
-  if (status === Statuses.Started) {
-    return <>
-      <Timer
-        onComplete={ () => setStatus(Statuses.Complete) }
-        seconds={ GAME_TIME }
-      />
-      <div className="words-container">
-			<Words id="completed" words={ recentlyCompletedWords } />        
-        { currentWord &&
-          <WordInput
-          onComplete={ (word) => {
-            setCompletedWords( [...completedWords, word] );
-            setVisibleWords( visibleWords.slice(1) );
-          } }
-          onCorrect={ () => setCompletedCharsCount( completedCharsCount + 1 ) }
-          onError={ () => setTyposCount( typosCount + 1 ) }
-          onSkip={ () => setVisibleWords( visibleWords.slice(1) ) }
-          word={ currentWord }
-          /> }
+    <Screen condition={ status === Statuses.Started }>
+      <>
+        <Timer
+          onComplete={ () => setStatus(Statuses.Complete) }
+          seconds={ GAME_TIME }
+        />
+        <div className="words-container">
+        <Words id="completed" words={ recentlyCompletedWords } />        
+          { currentWord &&
+            <WordInput
+            onComplete={ (word) => {
+              setCompletedWords( [...completedWords, word] );
+              setVisibleWords( visibleWords.slice(1) );
+            } }
+            onCorrect={ () => setCompletedCharsCount( completedCharsCount + 1 ) }
+            onError={ () => setTyposCount( typosCount + 1 ) }
+            onSkip={ () => setVisibleWords( visibleWords.slice(1) ) }
+            word={ currentWord }
+            /> }
         <Words id="upcoming" words={ upcomingWords } />
-      </div>
-    </>;
-  }
+        </div>
+      </>
+    </Screen>
 
-  if (status === Statuses.Complete) {
-    return <>stats</>;
-  }
-
-  return null;
+    <Screen condition={ status === Statuses.Complete }>
+      <>stats</>
+    </Screen>
+  </>;
 };
 
