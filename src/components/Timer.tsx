@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import '../styles/Timer.scss';
 
 type TimerProps = {
   onComplete: () => void;
